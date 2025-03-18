@@ -1,0 +1,104 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\title{\textbf{Assignment: Identifying Critical Nodes in a Computer Network Using DFS}}
+\author{Course: Algorithms: Design \& Analysis}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Problem Statement}
+A critical node (articulation point) in a computer network is a node whose removal increases the number of connected components. Such nodes are crucial in network resilience analysis. In this assignment, you will:
+
+\begin{enumerate}
+    \item Model a computer network as an undirected graph, where nodes represent routers/servers, and edges represent connections.
+    \item Implement an algorithm to detect articulation points using Depth-First Search (DFS).
+    \item Simulate network failure by removing a critical node and analyzing the resulting connectivity.
+\end{enumerate}
+
+\section{Input Format}
+The input file (\texttt{network\_<file number>.txt}) will contain:
+\begin{itemize}
+    \item An integer \(V\) (number of nodes) and \(E\) (number of edges).
+    \item \(E\) lines, each containing two integers \(u, v\) indicating an undirected edge between \(u\) and \(v\).
+\end{itemize}
+
+\textbf{Example Input:}
+\begin{verbatim}
+6 7
+0 1
+0 2
+1 3
+2 3
+3 4
+3 5
+4 5
+\end{verbatim}
+
+\section{Output Format}
+\begin{itemize}
+    \item A list of articulation points (if any).
+    \item A network failure simulation in which one articulation point is removed, showing the resulting disconnected components.
+\end{itemize}
+
+\textbf{Example Output:}
+\begin{verbatim}
+Critical Nodes (Articulation Points): 3
+Removing node 3 will disconnect the network into two components: [0, 1, 2] and [4, 5]
+\end{verbatim}
+\section{Algorithm Requirements}
+Your implementation should:
+\begin{itemize}
+    %\item Implement Tarjan's Algorithm to find articulation points.
+    \item Use DFS traversal to compute the discovery time (disc []) and the lowest reachable ancestor (low[]). So we maintain an additional array low[] such that:
+low[u] = min(disc[u], disc[w]) , Here w is an ancestor of u and there is a back edge from some descendant of u to w.
+    \item Identify nodes that satisfy the conditions of the articulation point: \begin{itemize}
+            \item A root with two or more children.
+            \item A non-root node where low[child]$\ge$disc[node].
+          \end{itemize}
+    \item Simulate network failure by removing an articulation point and computing new connected components.
+\end{itemize}
+
+\section{Implementation Details}
+Use \textbf{Python} for implementation. Your program should:
+
+\begin{itemize}
+    \item Read input from files named \texttt{network\_<file number>.txt} located in the \textbf{network} folder (\url{https://tinyurl.com/2p9n3hvb}).
+    \item Compute \textbf{articulation points} using \textbf{Depth-First Search (DFS)}.
+    \item Simulate and output the effect of \textbf{network failures} caused by removing articulation points.
+\end{itemize}
+
+Ensure that your program dynamically processes all files in the \textbf{network} directory, handling multiple input files systematically.
+
+\section{Evaluation Criteria}
+Your assignment will be graded based on:
+\begin{itemize}
+    \item \textbf{Correctness (50\%)}: Identifies articulation points accurately using DFS.
+    \item \textbf{Simulation (30\%)}: Visualize the effect of \textbf{network failures} caused by removing articulation points.
+    \item \textbf{Code Readability (20\%)}: Well-commented and structured code.
+\end{itemize}
+
+\section{Submission Guidelines}
+\begin{itemize}
+    \item Submit your Python script as \texttt{network\_analysis\_<Your name>.py}.
+    \item Provide a short report (\texttt{report.pdf}) covering:
+          \begin{itemize}
+            \item Your approach to solving the problem.
+            \item Challenges faced and resolutions.
+            \item Example output from your program.
+          \end{itemize}
+\end{itemize}
+
+\section{Expected Learning Outcomes}
+By completing this assignment, you will:
+\begin{itemize}
+    \item Understand network resilience and single points of failure.
+    \item Implement Tarjan’s Algorithm for articulation point detection.
+    \item Simulate and analyze network failures.
+\end{itemize}
+
+\end{document}
